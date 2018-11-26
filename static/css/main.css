@@ -1,0 +1,328 @@
+* {box-sizing: border-box;}
+/*Estilo BODY*/
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font:400 15px/1.8 "Lato", sans-serif;
+    color: #777;
+}
+
+#cabecera {
+    width: 100%;
+    min-height: 50px;
+    background-color: #e2e0e0;;
+    border-bottom: 1px solid #777;
+}
+
+/*Estilo BOTON Buscar MENU SUPERIOR*/
+#buscarBtn:hover{
+    background-color: #eff70e;
+}
+
+/*Estilos MENU LATERAL IZQUIEDO*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition:0.5s;
+    /*padding-top: 10px;*/
+}
+
+.sidenav a {
+    padding: 6px 8px 8px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+.sidenav .glyphicon {
+    color: #eff70e;
+    cursor: pointer;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+/*Estilo BOTONES MENU LATERAL que pasan a amarillo*/
+.success {
+  /*border-color: #818181;*/
+  color: black;
+  padding-top:5px;
+  padding-bottom: 5px;
+  border-bottom-color: black;
+}
+
+.success:hover {
+  background-color: #eff70e;
+  color: black;
+  /*color: #818181;*/
+}
+
+/*Estilo para el SLIDER NºSEGUIDORES del MENU LATERAL*/
+.slidecontainer {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #eff70e;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #eff70e;
+    cursor: pointer;
+}
+
+input:checked + .slide {
+      background-color: #eff70e;
+}
+
+input:focus + .slide {
+  box-shadow: 0 0 1px #eff70e;
+}
+
+input:checked + .slide:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+   background-color: #818181;
+}
+
+/*Estilos de CHECKBOX Tipo Ususarios MENU LATERAL*/
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Esconde el boton por defecto del radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Crea un boton propio para el radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: dimgrey;
+    border-radius: 25%;
+}
+
+
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+
+.container input:checked ~ .checkmark {
+    background-color: #eff70e;
+}
+
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/*Estilo diferentes elementos del MENU LATERAL por sus id*/
+.grande{
+    font-size:18px;
+}
+.margin-top-5 {
+    margin-top: 5px;
+}
+.margin-top-15 {
+    margin-top: 15px;
+}
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
+.no-padding {
+    padding: 0px;
+}
+
+#min{
+    padding-top:5px;
+}
+#max{
+    padding-top:5px;
+}
+#tipousuario{
+    padding-top:8px;
+}
+#centralidad{
+    font-size:18px;
+}
+#comunidad{
+    font-size:18px;
+    padding-top:8px;
+}
+
+/*Estilos MENU DERECHO*/
+.lateralnav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    right: 0;
+    background-color: #e2e0e0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color:black;
+
+}
+
+.lateralnav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    transition: 0.3s;
+    color:black;
+}
+
+
+.lateralnav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 36px;
+    margin-left: 70px;
+    color:black;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .lateralnav {padding-top: 15px;}
+  .lateralnav a {font-size: 18px;}
+}
+
+/*Estilos TABLA*/
+ table
+{
+    width: 80%;
+    font-size: 15px;
+}
+table, th, td
+{
+    /*border: solid 1px #DDD;*/
+    border-bottom: 1px solid lightgrey;
+    border-collapse: collapse;
+    padding: 2px 3px;
+    text-align: center;
+    color:black;
+    mso-cellspacing: 2px;
+}
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/*#rightNav{*/
+    /*overflow-x:auto*/
+/*}*/
+/*Estilo MODAL INFORMACION TIPO DE USUARIOS*/
+.modal-content {
+    width: 900px;
+}
+.modal-body dd{
+    /*font-size:18px;*/
+    margin:10px;
+}
+.modal-body #usuario{
+    color:#eff70e;
+    }
+    #mencionado{
+        color:#02c38a;
+    }
+    #respondido{
+        color:#ca7ff9;
+    }
+    #citado{
+        color:#efb353;
+    }
+    #retuiteador{
+        color:#f97f95;
+    }
+    #retuiteado{
+        color:#0b7982;
+    }
+/*Estilos ELEMENTOS DE VISUALIZACION (Nodos, Aristas, Tooltips)*/
+
+ /*.node{*/
+    /*!*fill: #ff0000;*!*/
+    /*stroke: #000000;*/
+    /*stroke-width: 2px;*/
+/*}*/
+
+.link{
+    stroke: #656565;
+    stroke-width:2px;
+}
+
+.d3-tip	{
+    line-height:	1;
+    font-weight:	bold;
+    padding:	12px;
+    background:	darkgrey;
+    color:	black;
+    border-radius:	10px;
+    }
+
+#grafo{
+    width: 100%;
+    height: 100%;
+}

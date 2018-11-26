@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>TFG Inés Merino Lobo</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src='http://d3js.org/d3.v3.min.js'></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+</head>
+<body>
+
+    <!--MENU SUPERIOR-->
+    <div id="cabecera">
+        <div class="col-xs-4">
+            <div class="btn btn-lg" onclick="abrirMenuIzquierdo()"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+        </div>
+        <div class="col-xs-4 text-center margin-top-5">
+            <div class="col-xs-10">
+                <input type="text" id="hashtag" class="form-control" placeholder="Busca otro hashtag ..." >
+            </div>
+            <div class="col-xs-2">
+                <button type="submit" id="buscarBtn" class="btn btn-default">Buscar</button>
+            </div>
+        </div>
+        <div class="col-xs-4 text-right">
+            <div class="btn btn-lg" onclick="mostrarModalUsuarios()">
+                <span class="glyphicon glyphicon-question-sign"></span>
+            </div>
+            <div id="btnMostrarTop" class="btn btn-lg" onclick="abrirDerecho()">
+                <span  class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MENU IZQUIERDO -->
+    <div id ="leftNav" class="sidenav">
+        <!--Cierre del menu lateral izquierdo-->
+        <div class="col-xs-12 text-right margin-top-5">
+            <span class="btn glyphicon glyphicon-remove no-padding" onclick="cerrarMenuIzquierdo()"></span>
+        </div>
+
+        <!--Filtros-->
+        <div class="col-xs-12 grande">
+            <label>Filtros</label>
+            <span id="tipFiltro" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="Aplica los siguientes filtros sobre el grafo"></span>
+        </div>
+
+        <!--Filtro por numero de seguidores-->
+        <div class="slidecontainer col-xs-12">
+            <label>Nº Seguidores:</label>
+            <div id="valorNumeroSeguidores" class="text-center">0</div>
+            <input type="range" class="slider" id="num_followers" name="points" value=0 min="0" max="100000" oninput="seleccionarNumeroSeguidores()">
+            <small class="min pull-left" id="min">Min 0</small>
+            <small class="max pull-right" id="max">Max 1M</small>
+        </div>
+
+        <!--Filtro por tipo de usuario (verificado o no verificado)-->
+        <div class="col-xs-12">
+            <label id="tipousuario">Tipo de usuarios :</label>
+            <div id="filter" class="form-item form-checkboxes checkbox col-xs-12">
+                <label class="container">
+                    <input type="radio" name="radio" checked="checked" onclick="seleccionarTipoUsuario()">
+                    <span class="checkmark"></span>
+                    <label>Todos</label>
+                </label>
+                <label class="container">
+                    <input type="radio" name="radio" onclick="seleccionarTipoUsuario('VERIFICADOS')">
+                    <span class="checkmark"></span>
+                    <label>Verificados</label>
+                </label>
+                <label class="container">
+                    <input type="radio" name="radio" onclick="seleccionarTipoUsuario('NO_VERIFICADOS')">
+                    <span class="checkmark"></span>
+                    <label>No Verificados</label>
+                </label>
+            </div>
+        </div>
+
+        <!--TODO Filtro por Sentimiento del tweet: Hater/Lover-->
+        <div class="col-xs-12 hide">
+            <label>Tipo de contenido :</label>
+        </div>
+        <div class="col-xs-12 hide">
+            <div class="radio-inline grande">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked="true">
+              <label class="glyphicon glyphicon-thumbs-up" for="inlineCheckbox1"></label>
+            </div>
+            <div class="radio-inline grande">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked="true">
+              <label class="glyphicon glyphicon-thumbs-down" for="inlineCheckbox2"></label>
+            </div>
+        </div>
+
+        <!--Algoritmos para aplicar-->
+        <div class="col-xs-12 grande">
+            <label>Algoritmos</label>
+            <span class="glyphicon glyphicon-question-sign" onclick="mostrarModalAlgoritmos()"></span>
+        </div>
+
+        <div class="col-xs-12">
+            Centralidad
+            <div class="margin-bottom-5 col-xs-12">
+                    <button type="button" class="btn btn success" onclick="window.location.href='http://localhost:5000/pageRank'"> PageRank </button>
+            </div>
+            <div class="margin-bottom-5 col-xs-12">
+                <button type="button" class="btn btn success"onclick="window.location.href='http://localhost:5000/closenness'"> Closenness </button>
+            </div>
+            <div class="margin-bottom-5 col-xs-12">
+                    <button type="button" class="btn btn success" onclick="window.location.href='http://localhost:5000/betweenness'"> Betweenness </button>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            Comunidad
+            <div class="margin-bottom-5 col-xs-12">
+                    <button type="button" class="btn btn success" onclick="window.location.href='http://localhost:5000/louvain'"> Louvain </button>
+            </div>
+            <!--<div class="margin-bottom-5 col-xs-12">-->
+                    <!--<button type="button" class="btn btn success"  onclick="window.location.href='http://localhost:5000/graph/labelPropagation'" > Label Propagation </button>-->
+            <!--</div>-->
+            <div class="margin-bottom-5 col-xs-12">
+                    <button type="button" class="btn btn success"  onclick="window.location.href='http://localhost:5000/componentesConexas'"> Componentes Conexas </button>
+            </div>
+        </div>
+    </div>
+    <!--FIN MENU IZQUIERDO-->
+
+    <!--MENU DERECHO-->
+    <div id ="rightNav" class="lateralnav">
+
+        <div class="col-xs-12 grande margin-top-15">
+            <span class="fa fa-user-circle-o"></span> Top ranking
+        </div>
+        <div class="col-xs-12">
+            <div id="insertarDatos"></div>
+        </div>
+    </div>
+    <!--FIN MENU DERECHO-->
+
+    <!--MODALES-->
+
+    <!-- Modal Informacion de Usuarios | Menu Superior -->
+    <div class="modal fade" id="infoUsuariosModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Tipo de usuarios según el color del borde de los nodos: </h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                <ul><i class="fa fa-circle" id="usuario" aria-hidden="true"></i> Usuario : usuario que ha tuiteado sobre el hashtag buscado</ul>
+                <ul><i class="fa fa-circle" id="mencionado" aria-hidden="true"></i> Usuario Mencionado : usuario al que han mencionado en un tuit</ul>
+                <ul><i class="fa fa-circle" id="respondido" aria-hidden="true"></i> Usuario Respondido : usuario al que han respondido en un tuit</ul>
+                <ul><i class="fa fa-circle" id="citado" aria-hidden="true"></i> Usuario Citado : usuario que ha sido citado en un tuit</ul>
+                <ul><i class="fa fa-circle" id="retuiteador" aria-hidden="true"></i> Usuario al que han Retuiteado : usuario que ha escrito un tuit con el hashtag  y ha sido retuiteado</ul>
+                <ul><i class="fa fa-circle" id="retuiteado" aria-hidden="true"></i> Usuario que ha Retuiteado : usuario que ha retuiteado un tuit que contenía el hashtag buscado</ul>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Modal Algoritmos -->
+    <div class="modal fade" id="algoritmosModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Tipos de Algoritmos de Grafos a aplicar: </h4>
+                </div>
+                <div class="modal-body">
+                    <dl>
+                        <dt> Algoritmos de Centralidad : Determinan la importancia de los nodos en una red.  <a href="https://es.wikipedia.org/wiki/Centralidad">Más información</a></dt>
+                            <dd>PageRank: Mide la influencia o conectividad de los nodos. <a href="https://es.wikipedia.org/wiki/PageRank">Más información</a> </dd>
+                            <dd>Closeness: Mide la capacidad de los nodos para difundir la información de manera eficiente. <a href="https://es.wikipedia.org/wiki/Centralidad#Cercan%C3%ADa">Más información</a></dd>
+                            <dd>Betweenness: Mide la influencia de un nodo sobre el flujo de información de un grafo. <a href="https://es.wikipedia.org/wiki/Centralidad#Intermediaci%C3%B3n">Más información</a></dd>
+                        <dt> Algoritmos de Detección de Comunidades: Evalúan cómo se agrupan los nodos en clústers o comunidades. <a href="https://en.wikipedia.org/wiki/Community_structure#Algorithms_for_finding_communities">Más información</a> </dt>
+                            <dd>Louvain: Algoritmo de detección de comunidades basado en la modularidad en los nodos, evalúa cómo de conectados están los nodos dentro de una comunidad o clúster en comparación de cómo de conectado estarían en una red aleatoria. <a href="https://en.wikipedia.org/wiki/Louvain_Modularity">Más información</a></dd>
+                            <dd>Componentes Conexas: Detecta comunidades basadas en conjuntos de nodos conectados donde cada nodo es accesible desde cualquier otro nodo del mismo conjunto. <a href="https://en.wikipedia.org/wiki/Connected_component_(graph_theory)">Más información</a></dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIN MODALES-->
+
+{% block content %}
+{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+
+</body>

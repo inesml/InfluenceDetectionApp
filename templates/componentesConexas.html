@@ -1,0 +1,23 @@
+{% extends 'main/main.html' %}
+{%block content%}
+
+<div id="grafo"></div>
+
+<!--Llamamos al archivo con el código correspondiente a COMPONENTES CONEXAS-->
+<script src="{{ url_for('static', filename='js/componentesConexas.js')}}"></script>
+
+<script>
+    // Carga de los datos del JSON
+    d3.json('/static/data/datos.json', function(error, json) {
+        if (error) throw error;
+
+        datosTotales = json;
+
+        pintarGrafo('componentesConexas',  json.nodes);
+
+    // Crear la tabla con el top rating de comunidades por componentes conexas
+        calcularTablaTopRating("/static/data/top_conexas.json");
+    });
+
+</script>
+{%endblock%}

@@ -1,0 +1,23 @@
+{% extends 'main/main.html' %}
+{%block content%}
+
+<div id="grafo"></div>
+
+<!--Llamamos al archivo con el codigo correspondiente a la visualizacion CLOSENNESS-->
+<script src="{{ url_for('static', filename='js/closenness.js')}}"></script>
+
+<script>
+    // Carga de los datos del JSON
+    d3.json('/static/data/datos.json', function(error, json) {
+        if (error) throw error;
+
+        datosTotales = json;
+
+        pintarGrafo('closenness',  json.nodes);
+
+        // Crear y pintar la tabla del TOP RANKING
+        calcularTablaTopRating("/static/data/top_closenness.json");
+    });
+
+</script>
+{%endblock%}

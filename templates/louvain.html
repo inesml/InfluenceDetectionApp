@@ -1,0 +1,23 @@
+{% extends 'main/main.html' %}
+{%block content%}
+
+<div id="grafo"></div>
+
+<!--Llamamos al archivo con el codigo correspondiente a la visualizacion LOUVAIN-->
+<script src="{{ url_for('static', filename='js/louvain.js')}}"></script>
+
+<script>
+    // Carga de los datos del JSON
+    d3.json('/static/data/datos.json', function(error, json) {
+        if (error) throw error;
+
+        datosTotales = json;
+
+        pintarGrafo('louvain',  json.nodes);
+
+        // Funcion para crear la tabla del TOP RATING
+        calcularTablaTopRating("/static/data/top_louvain.json");
+    });
+
+</script>
+{%endblock%}

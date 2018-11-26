@@ -1,0 +1,21 @@
+{% extends 'main/main.html' %}
+{%block content%}
+
+<div id="grafo"></div>
+
+<!--Llamamos al archivo con el codigo correspondiente a la visualizacion BETWEENNESS-->
+<script src="{{ url_for('static', filename='js/betweenness.js')}}"></script>
+
+<script>
+    // Carga de los datos del JSON
+    d3.json('/static/data/datos.json', function(error, json) {
+        if (error) throw error;
+
+        datosTotales = json;
+
+        pintarGrafo('betweenness',  json.nodes);
+        calcularTablaTopRating("/static/data/top_betweenness.json");
+    });
+
+</script>
+{%endblock%}

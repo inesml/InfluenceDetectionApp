@@ -1,0 +1,126 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font:400 15px/1.8 "Lato", sans-serif;
+    color: #777;
+}
+*{
+    box-sizing: border-box;
+}
+
+form.example input[type=text]{
+    padding:10px;
+    font-size: 25px;
+    border: 1px dimgrey;
+    float: left;
+    width: 80%;
+    background:#f1f1f1;
+}
+
+form.example button{
+    float: left;
+    width:20%;
+    padding:10px;
+    background-color:#555;
+    color:black;
+    font-size:25px;
+    border:1px dimgrey;
+    border-left:none;
+    cursor:pointer;
+}
+
+form.example button:hover{
+    background: #eff70e;
+}
+form.example button::after{
+    content:"";
+    clear:both;
+    display:table;
+}
+
+.bgimg-1, .bgimg-2, .bbgimg-3 {
+    position:relative;
+    opacity:0.65;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+ }
+.bgimg-1{
+    background:transparent;
+    background-image: url("../image/jeans.jpg");
+    /*background: #15f2cd;*/
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.caption{
+    position:absolute;
+    left:0;
+    top:30%;
+    width: 100%;
+    text-align:center;
+    color: #000;
+}
+.caption span.border{
+    background: #111;
+    color: #fff;
+    padding: 18px;
+    font-size:25px;
+    letter-spacing: 10px;
+}
+.bgimg-1 .btn {
+    position: absolute;
+    top: 180%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    /*background-color: #eff70e;*/
+    color: white;
+    font-size: 28px;
+    padding: 12px 24px;
+    border: none;
+    transition: all 0.2s;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn span{
+    cursor:pointer;
+    display: inline-block;
+    position:relative;
+    transition: 0.2s;
+}
+
+.btn span:after{
+    content: '\00bb';
+    position: absolute;
+    opacity:0;
+    top:0;
+    right:-20px;
+    transition:0.2s;
+}
+
+.btn:hover {
+    /*background-color: black;*/
+    background-color: #eff70e;
+    color:black;
+}
+.btn:hover span{
+    padding-right:25px;
+}
+.btn:hover span:after{
+    opacity:1;
+    right:0;
+}
+
+h3 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font: 20px "Lato", sans-serif;
+    color: #111;
+}
